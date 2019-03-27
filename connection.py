@@ -37,6 +37,30 @@ def get_currency():
     print(json_data)
 
 
+def connect_database():
+    path = 'database/database.py'
+    try:
+        database = open(path, 'w+')
+        print('Successfully connected to the database')
+    except:
+        print('Something is wrong and you will need to create a new database.')
+        create_database()
+        database = open(path, 'w+')
+        print('Successfully connected to the database')
+    return database
+
+
+def create_database():
+    import os
+    path = 'database'
+    try:
+        os.mkdir(path)
+    except OSError:
+        print('Creation of the directory {} failed'.format(path))
+    else:
+        print('Successfully created the directory {} '.format(path))
+
+
 if __name__ == '__main__':
-    get_stocks()
-    get_currency()
+    pass
+

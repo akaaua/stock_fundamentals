@@ -13,7 +13,7 @@ def get_stocks(symbol):
         {"apikey": api_key})
 
     json_data = call_api(url)
-    print(json_data)
+    return json_data
 
 
 def get_currency():
@@ -29,7 +29,7 @@ def get_currency():
         {"apikey": api_key})
 
     json_data = call_api(url)
-    print(json_data)
+    return json_data
 
 
 def call_api(url):

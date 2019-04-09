@@ -15,6 +15,10 @@ class Company():
             self.__records.append(record)
 
     @property
+    def symbol(self):
+        return self.__symbol
+
+    @property
     def records(self):
         return self.__records
 

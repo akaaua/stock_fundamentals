@@ -1,4 +1,4 @@
-from historical import Historical
+from models.historical import Historical
 
 
 class Company():

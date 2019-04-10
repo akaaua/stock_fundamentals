@@ -2,14 +2,14 @@ import urllib.parse
 import requests
 
 
-def get_stocks(symbol):
+def get_stocks(company_symbol):
     main_api = "https://www.alphavantage.co/query?"
     period = 'TIME_SERIES_DAILY'
     outputsize = 'compact'
     api_key = '70CCIQQ5ZMGX1Y1O'
 
     url = main_api + urllib.parse.urlencode({"function": period}) + "&" + urllib.parse.urlencode(
-        {"symbol": symbol}) + "&" + urllib.parse.urlencode({"outputsize": outputsize}) + "&" + urllib.parse.urlencode(
+        {"symbol": company_symbol}) + "&" + urllib.parse.urlencode({"outputsize": outputsize}) + "&" + urllib.parse.urlencode(
         {"apikey": api_key})
 
     json_data = call_api(url)
@@ -33,17 +33,19 @@ def get_currency():
 
 
 def call_api(url):
+
+
     try:
         json_data = requests.get(url).json()
-        if 'Error Message' not in json_data:
-            return json_data
+    except Exception as err:
+        print('Something is wrong: {}'.format(err))
+        return (None, 1)
+    else:
+        if 'Error Message' in json_data.keys():
+            print('Company not found, please try again.')
+            return (None, 1)
         else:
-            print('Something is wrong')
-            return ''
-    except:
-        print('Something is wrong')
-        return ''
-
+            return (json_data, 0)
 
 
 def connect_database():

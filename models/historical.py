@@ -1,7 +1,13 @@
 from _datetime import datetime
 
 class Historical:
+    """
+    This Class represents a unit of historical, in other words, each instance of this class is one day.
+    """
     def __init__(self, cod, date, open, high, low, close, volume):
+        """
+        In this method, each value is  assigned to your respective attributes
+        """
         self.__cod = cod
         self.__date = datetime.strptime(date, '%Y-%m-%d').date()
         self.__open = float(open)

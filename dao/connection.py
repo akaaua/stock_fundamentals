@@ -1,15 +1,20 @@
 import urllib.parse
 import requests
 
+"""
+This File has all the method that get data from API and create the file database.
+"""
 
-def get_stocks(symbol):
+
+def get_stocks(company_symbol):
+    """ The Method that receives a symbol and constructs the URL to connect to API """
     main_api = "https://www.alphavantage.co/query?"
     period = 'TIME_SERIES_DAILY'
     outputsize = 'compact'
     api_key = '70CCIQQ5ZMGX1Y1O'
 
     url = main_api + urllib.parse.urlencode({"function": period}) + "&" + urllib.parse.urlencode(
-        {"symbol": symbol}) + "&" + urllib.parse.urlencode({"outputsize": outputsize}) + "&" + urllib.parse.urlencode(
+        {"symbol": company_symbol}) + "&" + urllib.parse.urlencode({"outputsize": outputsize}) + "&" + urllib.parse.urlencode(
         {"apikey": api_key})
 
     json_data = call_api(url)
@@ -17,6 +22,7 @@ def get_stocks(symbol):
 
 
 def get_currency():
+    """ Method that get from API the currency rate, it will be used in the future implementation """
     main_api = "https://www.alphavantage.co/query?"
     period = 'CURRENCY_EXCHANGE_RATE'
     from_currency = 'USD'
@@ -33,20 +39,23 @@ def get_currency():
 
 
 def call_api(url):
+    """ The method that executes the connection to API and does the check """
+
     try:
         json_data = requests.get(url).json()
-        if 'Error Message' not in json_data:
-            return json_data
+    except Exception as err:
+        print('Something is wrong: {}'.format(err))
+        return (None, 1)
+    else:
+        if 'Error Message' in json_data.keys():
+            print('Company not found, please try again.')
+            return (None, 1)
         else:
-            print('Something is wrong')
-            return ''
-    except:
-        print('Something is wrong')
-        return ''
-
+            return (json_data, 0)
 
 
 def connect_database():
+    """ This method does the connection to a file database but first, check if exist a previously file """
     path = 'database/database.py'
     try:
         database = open(path, 'w+')
@@ -60,6 +69,9 @@ def connect_database():
 
 
 def create_database():
+    """
+     This method creates a new file database.
+    """
     import os
     path = 'database'
     try:
@@ -68,8 +80,3 @@ def create_database():
         print('Creation of the directory {} failed'.format(path))
     else:
         print('Successfully created the directory {} '.format(path))
-
-
-if __name__ == '__main__':
-    pass
-

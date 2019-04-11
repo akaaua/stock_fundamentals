@@ -1,8 +1,13 @@
 import urllib.parse
 import requests
 
+"""
+This File has all the method that get data from API and create the file database.
+"""
+
 
 def get_stocks(company_symbol):
+    """ The Method that receives a symbol and constructs the URL to connect to API """
     main_api = "https://www.alphavantage.co/query?"
     period = 'TIME_SERIES_DAILY'
     outputsize = 'compact'
@@ -17,6 +22,7 @@ def get_stocks(company_symbol):
 
 
 def get_currency():
+    """ Method that get from API the currency rate, it will be used in the future implementation """
     main_api = "https://www.alphavantage.co/query?"
     period = 'CURRENCY_EXCHANGE_RATE'
     from_currency = 'USD'
@@ -33,7 +39,7 @@ def get_currency():
 
 
 def call_api(url):
-
+    """ The method that executes the connection to API and does the check """
 
     try:
         json_data = requests.get(url).json()
@@ -49,6 +55,7 @@ def call_api(url):
 
 
 def connect_database():
+    """ This method does the connection to a file database but first, check if exist a previously file """
     path = 'database/database.py'
     try:
         database = open(path, 'w+')
@@ -62,6 +69,9 @@ def connect_database():
 
 
 def create_database():
+    """
+     This method creates a new file database.
+    """
     import os
     path = 'database'
     try:
@@ -70,8 +80,3 @@ def create_database():
         print('Creation of the directory {} failed'.format(path))
     else:
         print('Successfully created the directory {} '.format(path))
-
-
-if __name__ == '__main__':
-    pass
-

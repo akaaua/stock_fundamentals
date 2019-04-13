@@ -1,11 +1,11 @@
 from dao.connection import get_stocks
-from helpers.helpers import apresentation,ask_user,isValid,extract_values
+from helpers.helpers import apresentation, ask_user, isValid, extract_values, print_results
 
 
 def play():
     apresentation()
 
-    carry_on=True
+    carry_on = True
 
     while carry_on:
 
@@ -13,11 +13,11 @@ def play():
 
         if (isValid(stock_data)):
             company = extract_values(stock_data)
-            print('Company with Symbol: {}'.format(company.symbol))
-            print('Total of record is: {}'.format(company.count_records))
-            print('List of records are: {}'.format(company.records))
+            print_results(company)
+
         else:
             continue
 
+
 if __name__ == '__main__':
-   play()
+    play()

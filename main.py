@@ -1,29 +1,23 @@
 from dao.connection import get_stocks
-from models.company import Company
-from helpers.helpers import apresentation,ask_user
+from helpers.helpers import apresentation, ask_user, isValid, extract_values, print_results
 
 
 def play():
     apresentation()
-    carry_on=True
+
+    carry_on = True
 
     while carry_on:
+
         stock_data = get_stocks(ask_user())
 
-        if (stock_data[1] is 0):
-            stock_metadata = stock_data[0][ 'Meta Data' ]
-            company_symbol = stock_metadata[ '2. Symbol' ]
-            company = Company(company_symbol)
+        if (isValid(stock_data)):
+            company = extract_values(stock_data)
+            print_results(company)
 
-            stock_historical = stock_data[0][ 'Time Series (Daily)' ]
-            company.add_records(stock_historical)
         else:
             continue
 
+
 if __name__ == '__main__':
-   play()
-
-
-
-
-
+    play()

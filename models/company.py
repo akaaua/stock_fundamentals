@@ -9,6 +9,7 @@ class Company():
     def __init__(self, symbol):
         self.__symbol = symbol
         self.__records = [ ]
+        self.__balances = [ ]
 
     def add_records(self, stock_historical):
         """
@@ -32,3 +33,10 @@ class Company():
     @property
     def count_records(self):
         return len(self.records)
+
+    def set_balances(self, list_balances):
+        self.__balances = list_balances
+
+    @property
+    def balances(self):
+        return self.__balances

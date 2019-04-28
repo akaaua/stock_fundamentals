@@ -1,4 +1,5 @@
 from models.company import Company
+from dao.import_file import get_balance_values
 
 def apresentation():
     print("**************************************")
@@ -36,3 +37,9 @@ def print_results(company):
                                                                                 company.records[ 0 ].low))
     print('The difference between the Highest and the Lowest values is: {:02.2f}%'.format(
         100 - company.records[ 0 ].low / company.records[ 0 ].high * 100))
+
+def get_balance(company):
+    company.set_balances(get_balance_values(company.symbol))
+    return company
+
+

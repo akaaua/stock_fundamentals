@@ -1,4 +1,4 @@
-class balance():
+class Balance():
     """
     Class Balance.
     """
